@@ -7,24 +7,13 @@ class Crypto
   end
 
   def ciphertext
-    output = ""
-    data = plaintext_segments
-
-    loop do 
-      data.each do |string|
-        output += string.slice!(0) if string.length > 0
-      end
-      break if data[0] == ""
-    end
-    output
+    encrypt
   end
 
   def normalize_ciphertext
-
-    ciphertext.chars.each_slice(size-1).map(&:join).join(" ")
+    encrypt(true)
   end
   
-
   def plaintext_segments
     normalize_plaintext.chars.each_slice(size).map(&:join)
   end
@@ -35,6 +24,20 @@ class Crypto
 
   def normalize_plaintext
     @input = @input.gsub(/[^a-zA-Z\d]/, "").downcase
+  end
+
+
+  private
+  
+  def encrypt(with_space=false)
+    output = ""
+    data = plaintext_segments
+
+    until data[0] == ""
+      data.each { |string| output += string.slice!(0) if string.length > 0 }
+      output += " " if with_space
+    end
+    output.strip
   end
 
 end
