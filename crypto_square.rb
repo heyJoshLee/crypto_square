@@ -1,6 +1,7 @@
 class Crypto
 
-  attr_accessor :input, :size
+  attr_accessor :input
+  attr_reader :size
 
   def initialize(input)
     @input = input
@@ -11,7 +12,7 @@ class Crypto
   end
 
   def normalize_ciphertext
-    encrypt(true)
+    encrypt(" ")
   end
   
   def plaintext_segments
@@ -26,17 +27,17 @@ class Crypto
     @input = @input.gsub(/[^a-zA-Z\d]/, "").downcase
   end
 
-
   private
-  
-  def encrypt(with_space=false)
+
+  def encrypt(delimiter=false)
     output = ""
     data = plaintext_segments
 
     until data[0] == ""
       data.each { |string| output += string.slice!(0) if string.length > 0 }
-      output += " " if with_space
+      output += delimiter if delimiter
     end
+
     output.strip
   end
 
