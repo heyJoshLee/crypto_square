@@ -1,4 +1,4 @@
-# Launch School
+# [Launch School](http://launchschool.com)
 ## Crypto Square
 ### Code Challenge
 
